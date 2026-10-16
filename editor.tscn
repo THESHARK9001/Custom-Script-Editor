@@ -5,8 +5,10 @@
 [ext_resource type="Script" uid="uid://c1fpnplun5xa2" path="res://scripts/clear.gd" id="3_k4288"]
 [ext_resource type="Script" uid="uid://cqt7idefac2e" path="res://scripts/set_bg.gd" id="4_8yjtx"]
 [ext_resource type="Script" uid="uid://bbqixl2tca8a" path="res://scripts/quit.gd" id="5_3btpq"]
+[ext_resource type="Script" uid="uid://bbdkq201w0g4j" path="res://scripts/clearbg.gd" id="5_t27w5"]
 [ext_resource type="Script" uid="uid://dllo2ilyc4ul2" path="res://scripts/saveload.gd" id="6_7py46"]
 [ext_resource type="Script" uid="uid://162u8kt0ayac" path="res://scripts/alert.gd" id="7_kwc7g"]
+[ext_resource type="Script" uid="uid://du7cbcuac5p1o" path="res://scripts/reallyquit.gd" id="9_k4288"]
 
 [sub_resource type="SyntaxHighlighter" id="SyntaxHighlighter_g6s44"]
 
@@ -20,8 +22,9 @@ expand_mode = 1
 
 [node name="editor" type="CodeEdit" parent="." unique_id=1623907348]
 unique_name_in_owner = true
+offset_top = 61.0
 offset_right = 1280.0
-offset_bottom = 659.0
+offset_bottom = 720.0
 placeholder_text = "Start a script"
 virtual_keyboard_enabled = false
 scroll_smooth = true
@@ -33,41 +36,43 @@ draw_spaces = true
 indent_automatic = true
 
 [node name="save" type="Button" parent="." unique_id=1065743237]
-offset_top = 659.0
 offset_right = 115.0
-offset_bottom = 720.0
+offset_bottom = 61.0
 text = "Save File"
 script = ExtResource("1_gbsbp")
 
 [node name="load" type="Button" parent="." unique_id=991393255]
-offset_left = 115.0
-offset_top = 659.0
-offset_right = 230.0
-offset_bottom = 720.0
+offset_left = 118.0
+offset_right = 233.0
+offset_bottom = 61.0
 text = "Load File"
 script = ExtResource("2_t27w5")
 
 [node name="clear" type="Button" parent="." unique_id=1513413167]
-offset_left = 1165.0
-offset_top = 659.0
-offset_right = 1280.0
-offset_bottom = 720.0
+offset_left = 1047.0
+offset_right = 1162.0
+offset_bottom = 61.0
 text = "Clear Text"
 script = ExtResource("3_k4288")
 
 [node name="setbg" type="Button" parent="." unique_id=2018957048]
-offset_left = 1050.0
-offset_top = 659.0
-offset_right = 1165.0
-offset_bottom = 720.0
+offset_left = 811.0
+offset_right = 926.0
+offset_bottom = 61.0
 text = "Set BG"
 script = ExtResource("4_8yjtx")
 
+[node name="clearbg" type="Button" parent="." unique_id=1524765515]
+offset_left = 929.0
+offset_right = 1044.0
+offset_bottom = 61.0
+text = "Clear BG"
+script = ExtResource("5_t27w5")
+
 [node name="quit" type="Button" parent="." unique_id=162190572]
-offset_left = 935.0
-offset_top = 659.0
-offset_right = 1050.0
-offset_bottom = 720.0
+offset_left = 1165.0
+offset_right = 1280.0
+offset_bottom = 61.0
 text = "Quit"
 script = ExtResource("5_3btpq")
 
@@ -92,12 +97,24 @@ dialog_hide_on_ok = false
 dialog_autowrap = true
 script = ExtResource("7_kwc7g")
 
+[node name="reallyquit" type="ConfirmationDialog" parent="." unique_id=1299321388]
+unique_name_in_owner = true
+oversampling_override = 1.0
+title = "Quit?"
+initial_position = 1
+unresizable = true
+popup_window = true
+ok_button_text = "Yes"
+cancel_button_text = "No"
+script = ExtResource("9_k4288")
+
 [connection signal="pressed" from="save" to="save" method="_on_pressed"]
 [connection signal="pressed" from="load" to="load" method="_on_pressed"]
 [connection signal="pressed" from="clear" to="clear" method="_on_pressed"]
 [connection signal="pressed" from="setbg" to="setbg" method="_on_pressed"]
+[connection signal="pressed" from="clearbg" to="clearbg" method="_on_pressed"]
 [connection signal="pressed" from="quit" to="quit" method="_on_pressed"]
-[connection signal="canceled" from="saveload" to="saveload" method="_on_canceled"]
 [connection signal="file_selected" from="saveload" to="saveload" method="_on_file_selected"]
 [connection signal="canceled" from="alert" to="alert" method="_on_canceled"]
 [connection signal="confirmed" from="alert" to="alert" method="_on_confirmed"]
+[connection signal="confirmed" from="reallyquit" to="reallyquit" method="_on_confirmed"]

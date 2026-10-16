@@ -6,7 +6,6 @@ extends FileDialog
 var image_var = false
 var count = 0
 var fullscreen = false
-var quit = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -33,10 +32,12 @@ func _process(delta: float) -> void:
 		elif fullscreen:
 			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
 			fullscreen = false
+	sprite.size = Vector2(ProjectSettings.get_setting("display/window/size/viewport_width"), ProjectSettings.get_setting("display/window/size/viewport_height"))
 
 
 func _on_file_selected(path: String) -> void:
 	if file_mode == 4 and !image_var:
+		root_subfolder = "scripts"
 		var file = FileAccess.open(path, FileAccess.WRITE)
 		file.store_string(code.text)
 		file.close()
@@ -47,6 +48,7 @@ func _on_file_selected(path: String) -> void:
 		code.insert_text(file_as_text, 0, 0, true, true)
 		file.close()
 	elif file_mode == 0 and image_var:
+		root_subfolder = "images"
 		var split = path.split(".")
 		if split[1] != "png":
 			visible = false
@@ -55,9 +57,3 @@ func _on_file_selected(path: String) -> void:
 		image.load(path)
 		var texture = ImageTexture.create_from_image(image)
 		sprite.texture = texture
-	if quit:
-		get_tree().quit()
-		
-func _on_canceled() -> void:
-	if quit:
-		get_tree().quit()

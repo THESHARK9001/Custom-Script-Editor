@@ -21,9 +21,10 @@ func _on_pressed() -> void:
 		match error:
 			OK: print("Success")
 			_: alert.visible = true
+	filedialog.hide()
 	filedialog.get_line_edit().clear()
 	filedialog.file_mode = 4
 	filedialog.title = "Save your script"
-	filedialog.root_subfolder = "scripts"
+	filedialog.current_dir = folder_path
 	filedialog.image_var = false
-	filedialog.visible = true
+	filedialog.popup_centered()
